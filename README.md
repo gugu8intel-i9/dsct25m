@@ -111,7 +111,6 @@ The loader attempts, in order:
 3. `r0b0tlab/qwen3.8-max-glm5.2-kimi-k3-distillation`
 4. **Fallback:** `openai/gsm8k` (real CoT math data)
 
-> ⚠️ The Gugu8 datasets and the distillation dataset could not be verified to exist at the time of writing. The loader skips any dataset that fails and falls back to GSM8K, so training never crashes. Edit `DATASETS` / `FALLBACKS` in `src/dsct/data.py` to point at your own data.
 
 All text is wrapped in `<think>...</think>` tags so the model learns explicit chain-of-thought structure.
 
