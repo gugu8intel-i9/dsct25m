@@ -6,26 +6,26 @@ A **25M-parameter**, **ternary (1.58-bit)** language model with a novel dual-str
 ## Architecture
 
 ```
-                ┌─────────────────────────────────────────┐
- tokens ──► factorized embedding (ALBERT-style, tied)     │
-                │                                         │
-        ┌───────┴────────┐                                │
-        ▼                ▼                                │
-  ┌───────────┐    ┌───────────┐                          │
-  │ System 1  │◄──►│ System 2  │  × N layers              │
-  │ fast,     │gate│ slow,     │   gated cross-attention  │
-  │ semantic  │    │ reasoning │   (learned, init=0)      │
-  └───────────┘    └─────┬─────┘                          │
-                         │                                │
-                  ┌──────▼──────┐                         │
-                  │ deliberation│  recurrent refinement,  │
-                  │ loop (×R)   │  shared weights,        │
-                  └──────┬──────┘  learned halting gate   │
-                         │                                │
-                   gated fusion ──► LM head               │
-                         │                                │
-                   MTP heads (predict t+2, t+3)           │
-                └─────────────────────────────────────────┘
+dsct25m/
+├── LICENSE
+├── README.md
+├── pyproject.toml
+├── configs/
+│   └── dsct_25m.yaml
+├── scripts/
+│   ├── train.py
+│   ├── train_kaggle.py
+│   └── smoke_test.py
+├── src/
+│   └── dsct/
+│       ├── __init__.py
+│       ├── quant.py
+│       ├── model.py
+│       ├── tokenizer.py
+│       ├── data.py
+│       └── generate.py
+└── tests/
+    └── test_model.py
 ```
 
 ### Key components
