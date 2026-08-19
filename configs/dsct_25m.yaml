@@ -1,0 +1,32 @@
+# DSCT-25M configuration
+# Consumed by scripts/train.py and scripts/train_kaggle.py
+
+# Tokenizer
+tokenizer_base: openai-community/gpt2   # vocab wrapped by gigatoken (HF fallback)
+
+# Sequence / batching
+seq_len: 1024          # use 512 on Kaggle T4s
+batch: 16              # per-step batch (before grad accumulation)
+grad_accum: 1          # set to 4 on Kaggle for effective batch 32
+
+# Model (~23-25M params with these values)
+d: 384                 # model dimension
+layers: 3              # DSCT layers (each = both streams + crosstalk)
+heads: 6               # attention heads per stream
+emb_dim: 128           # factorized embedding dimension
+mtp_k: 2               # multi-token prediction heads (predict t+2, t+3)
+deliberate_steps: 2    # recurrent refinement steps on System 2
+
+# Optimization
+lr: 0.0006
+weight_decay: 0.1
+grad_clip: 1.0
+steps: 20000
+warmup_steps: 500
+
+# Precision
+fp16: false            # set true on T4 (no bf16 support on Turing)
+
+# Checkpointing
+save_every: 2000       # steps between checkpoints
+out_dir: checkpoints
