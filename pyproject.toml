@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "dsct25m"
+version = "0.1.0"
+description = "Dual-Stream Cognitive Transformer: 25M-param ternary LLM with CoT and MTP"
+requires-python = ">=3.10"
+dependencies = [
+    "torch>=2.2",
+    "datasets>=2.18",
+    "transformers>=4.40",
+    "pyyaml",
+]
+
+[project.optional-dependencies]
+fast = ["gigatoken"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
